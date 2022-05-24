@@ -11,7 +11,8 @@ class FilterIPMiddleware:
         request_date = datetime.date.today()
         request_time = str(datetime.datetime.now().hour) + ':' + str(datetime.datetime.now().minute)
         with open('request_file.txt', 'a') as request_file:
-            request_file.write(', '.join([str(request_date), str(request_time), str(request.method), str(request.get_raw_uri())]))
+            request_file.write(', '.join([str(request_date), str(request_time),
+                                          str(request.method), str(request.build_absolute_uri())]))
             request_file.write('\n')
 
         resource = self.get_response(request)
