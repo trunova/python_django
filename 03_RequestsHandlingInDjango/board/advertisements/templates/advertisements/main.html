@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+    <body style="margin: 20px 200px 0">
+        <div>
+            <p>Выбeрите регион из списка:</p>
+            <select>
+            {% for region in list_regions %}
+                <option>{{region}}</option>
+            {% endfor %}
+            </select>
+        </div>
+        <div>
+            <p>Введите название объявления:</p>
+            <p><input maxlength="25" size="40" ></p>
+        </div>
+
+        <button>Найти</button>
+    </body>
+</html>
