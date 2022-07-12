@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/normalize.css'%}">
+    <link rel="stylesheet" href="{% static 'css/style.css'%}">
+</head>
+<body class="body">
+    <form method="post">
+        {% csrf_token %}
+        <div class="conteiner">
+            <button class="btn btn_back" name="btn_back" value=1> назад </button>
+            <div class="header_create">
+                Создание новости
+            </div>
+            {{ form.as_p }}
+            <button class="create_news btn" name="save_news" value=1>Сохранить</button>
+        </div>
+    </form>
+</body>
+</html>

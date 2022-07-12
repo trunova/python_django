@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/normalize.css'%}">
+    <link rel="stylesheet" href="{% static 'css/style.css'%}">
+</head>
+<body class="body">
+    <form method="post" action="/app_news/{{news_id}}/detailed/">
+        {% csrf_token %}
+        <div class="conteiner">
+            <button class="btn btn_back" name="btn_back" value=1> назад </button>
+            <div class="header_detailed">
+                {{ select_news.title }}
+            </div>
+            <div class="news">
+                <time class="date">{{ select_news.create_date }}</time>
+                <div class="content">{{ select_news.content }}</div>
+            </div>
+            <p class="header_com">Оставить комментарий:</p>
+            {{ form.as_p }}
+            <button class="create_news btn" name="save_com" value=1>Отправить</button>
+            <div class="comments">
+            <p class="header_com">Комментарии:</p>
+                <ul class="list_comments">
+                {% if select_comment %}
+                    {% for comment in select_comment %}
+                        <li class="comment">
+                            <div class="name"> {{ comment.username }} </div>
+                            <div class="text"> {{ comment.comment_text }} </div>
+                            <div class="line"></div>
+                        </li>
+                    {% endfor %}
+                {% else %}
+                    <p>Здесь пока нет ни одного комментария, вы можете стать первым!</p>
+                {% endif %}
+                </ul>
+            </div>
+        </div>
+    </form>
+</body>
+</html>

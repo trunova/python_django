@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/normalize.css'%}">
+    <link rel="stylesheet" href="{% static 'css/style.css'%}">
+</head>
+<body class="body">
+    <form method="post">
+        {% csrf_token %}
+        <div class="conteiner">
+            <div class="header">
+                NEWS
+            </div>
+             {% for i in news %}
+                <div class="news">
+                    <button class="edit_news btn"
+                            name="edit_news_btn{{i.id}}" value=1>Редактировать новость</button>
+                    <div class="news_title" style="max-width: 460px">{{ i.title }}</div>
+                    Дата создания: <time class="date">{{ i.create_date }}</time>
+                    {% if i.edit_date != i.create_date%}
+                        Дата редактирования: <time class="date">{{ i.edit_date }}</time>
+                    {% endif %}
+                    <button class="add_com btn" name="add_com_btn{{i.id}}" value=1>Посмотреть детали</button>
+                </div>
+             {% endfor %}
+            <button class="create_news btn" name="create_news_btn" value=1>Создать новость</button>
+        </div>
+    </form>
+</body>
+</html>
