@@ -30,7 +30,11 @@
                 {% if select_comment %}
                     {% for comment in select_comment %}
                         <li class="comment">
-                            <div class="name"> {{ comment.username }} </div>
+                            {% if comment.user.is_authenticated %}
+                                <div class="name"> {{ comment.username }} </div>
+                            {% else %}
+                                <div class="name"> {{ comment.username }} (аноним) </div>
+                            {% endif %}
                             <div class="text"> {{ comment.comment_text }} </div>
                             <div class="line"></div>
                         </li>

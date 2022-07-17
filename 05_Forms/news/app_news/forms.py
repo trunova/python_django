@@ -15,4 +15,9 @@ class NewsCreateForm(ModelForm):
 class CommentForm(ModelForm):
     class Meta:
         model = Comment
+        fields = ['comment_text']
+
+class CommentFormLogin(ModelForm):
+    class Meta:
+        model = Comment
         fields = ['username', 'comment_text']

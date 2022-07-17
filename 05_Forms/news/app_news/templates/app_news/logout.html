@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>logout</title>
+    <link rel="stylesheet" href="{% static 'css/normalize.css'%}">
+    <link rel="stylesheet" href="{% static 'css/style.css'%}">
+
+</head>
+    <body class="body">
+        <form method="post">
+        {% csrf_token %}
+        <div class="conteiner">
+            <div class="header_create">
+                Вы успешно вышли из своей учётной записи!
+            </div>
+        </div>
+    </form>
+    </body>
+</html>

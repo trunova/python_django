@@ -9,10 +9,26 @@
     <link rel="stylesheet" href="{% static 'css/normalize.css'%}">
     <link rel="stylesheet" href="{% static 'css/style.css'%}">
 </head>
-<body class="body">
+{% if request.user.is_authenticated %}
+    <div class="head" style=" position: fixed; width: 100%; z-index: 1000; display: flex; justify-content: space-around;
+    top: 0; min-height: 50px; padding-top: 20px; background-color: #fff; font-size: 24px;">
+        <p style=" display: inline-block; margin: 0; color: #373472 ">
+            Добро пожаловать, {{ request.user.username }}!
+        </p>
+        <a href="{% url 'logout' %}">выйти</a>
+    </div>
+{% else %}
+    <div class="head" style=" position: fixed; width: 100%; z-index: 1000; display: flex; justify-content: space-around;
+    top: 0; min-height: 50px; padding-top: 20px; background-color: #fff; font-size: 24px;">
+        <p style=" display: inline-block; margin: 0; color: #373472 ">Вы не авторизованы</p>
+        <a href="{% url 'login' %}">войти</a>
+    </div>
+{% endif %}
+
+<body class="body" >
     <form method="post">
         {% csrf_token %}
-        <div class="conteiner">
+        <div class="conteiner" style="margin-top: 60px;">
             <div class="header">
                 NEWS
             </div>

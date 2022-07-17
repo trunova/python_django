@@ -1,5 +1,6 @@
 from django.db import models
 from django.template.defaultfilters import truncatechars  # or truncatewords
+from django.contrib.auth.admin import User
 
 class News(models.Model):
     FLAG_CHOICES = [
@@ -20,6 +21,8 @@ class Comment(models.Model):
     comment_text = models.TextField(verbose_name='Комментарий')
     news = models.ForeignKey('News', default=None, null=True,
                                on_delete=models.CASCADE, related_name='ad_news')
+    user = models.ForeignKey(User, default=None, null=True,
+                               on_delete=models.CASCADE, related_name='ad_user')
 
     @property
     def short_comment_text(self):

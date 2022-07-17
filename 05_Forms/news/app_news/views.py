@@ -3,8 +3,9 @@ from django.shortcuts import render
 from django.views import View
 from django.core.handlers.wsgi import WSGIRequest
 from app_news.models import News, Comment
-from .forms import NewsForm, NewsCreateForm, CommentForm
+from .forms import NewsForm, NewsCreateForm, CommentForm, CommentFormLogin
 from django.http import HttpResponseRedirect
+from django.contrib.auth.views import LoginView, LogoutView
 
 
 class ListNews(View):
@@ -99,7 +100,9 @@ class NewsDetailed(View):
         for comment in comments:
             if comment.news.id == news_id:
                 select_comment.append(comment)
-        form = CommentForm(instance=news)
+        if request.user.is_authenticated:
+            form = CommentForm(instance=news)
+        else: form = CommentFormLogin(instance=news)
         context = {}
         context['select_news'] = news
         context['select_comment'] = select_comment
@@ -111,16 +114,26 @@ class NewsDetailed(View):
         news = News.objects.get(id=news_id)
 
         select_comment = []
-        form = CommentForm(request.POST, instance=news)
+
+        if request.user.is_authenticated:
+            form = CommentForm(request.POST, instance=news)
+            name = request.user.username
+            user = request.user
+        else:
+            form = CommentFormLogin(request.POST, instance=news)
+            if form.is_valid():
+                name = form.cleaned_data.get('username')
+            user = None
         context = {}
         if not form.is_valid() and request.POST.get('btn_back'):
             return HttpResponseRedirect("/app_news/")
         elif request.POST.get('save_com'):
             if form.is_valid():
                 f = Comment(
-                    username=form.cleaned_data.get('username'),
+                    username=name ,
                     comment_text=form.cleaned_data.get('comment_text'),
-                    news=news)
+                    news=news,
+                    user=user)
                 f.save()
         comments = Comment.objects.all()
         for comment in comments:
@@ -133,3 +146,10 @@ class NewsDetailed(View):
         context['form'] = form
         context['news_id'] = news_id
         return render(request, 'app_news/detailed_news_page.html', context)
+
+
+class Login(LoginView):
+    template_name = 'app_news/login.html'
+
+class Logout(LogoutView):
+    template_name = 'app_news/logout.html'
