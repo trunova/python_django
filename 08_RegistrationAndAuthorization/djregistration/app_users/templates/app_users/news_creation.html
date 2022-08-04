@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News Creation</title>
+    <link rel="stylesheet" href="{% static 'css/normalize.css'%}">
+    <link rel="stylesheet" href="{% static 'css/style.css'%}">
+</head>
+<body class="body">
+    <div class="header news_creation__header">
+        <span class="news_creation__span">Создание новости</span>
+        <a href="../user_page/" class="input news_creation__input">
+            <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="24" height="24">
+                <path d="M16.043,14H7.957A4.963,4.963,0,0,0,3,18.957V24H21V18.957A4.963,4.963,0,0,0,16.043,14Z"/><circle cx="12" cy="6" r="6"/>
+            </svg>
+        </a>
+    </div>
+    <main class="main">
+        <section class="section news_creation">
+            <div class="container news_creation__container">
+                <form action=" " method="post" class="news_creation__form">
+                    {% csrf_token %}
+                    <ul class="list-reset form_list">
+                        <li class="form__item">
+                            <p class="form__title news__form__title">Название</p>
+                            {{ form.title }}
+                        </li>
+                        <li class="form__item">
+                            <p class="form__title news__form__title">Новость</p>
+                            {{ form.content }}
+                        </li>
+                        <li class="form__item">
+                            <p class="form__title news__form__title">Тег</p>
+                            {{ form.teg }}
+                        </li>
+                    </ul>
+                    <div class="btns">
+                        <button type="submit" value=1 name="save_news" class="btn news_creation__btn btn-reset">Сохранить</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+
+    </footer>
+</body>
+</html>

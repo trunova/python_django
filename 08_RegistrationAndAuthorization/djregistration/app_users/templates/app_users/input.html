@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentication</title>
+    <link rel="stylesheet" href="{% static 'css/normalize.css'%}">
+    <link rel="stylesheet" href="{% static 'css/style.css'%}">
+</head>
+<body class="body">
+    <div class="header">
+        <span>Аутентификация</span>
+        <div>
+            <a href="../registration/" class="registration">Регистрация</a>
+        </div>
+    </div>
+    <main class="main">
+        <section class="section">
+            <div class="container registration__container">
+                <div class="content registration__content">
+                    <p class="content__title registration__title registration__title_first">Ne</p>
+                    <p class="content__title registration__title registration__title_second">ws</p>
+                </div>
+                <form action=" " method="post" class="input__form">
+                    {% csrf_token %}
+                    <ul class="list-reset form_list">
+                        <li class="form__item">
+                            <p class="form__title">Имя</p>
+                            {{ form.username }}
+                        </li>
+                        <li class="form__item">
+                            <p class="form__title">Пароль</p>
+                            {{ form.password }}
+                        </li>
+                    </ul>
+                    <div class="btns">
+                        <button type="submit" class="btn input__btn btn-reset">Вход</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+
+    </footer>
+</body>
+</html>

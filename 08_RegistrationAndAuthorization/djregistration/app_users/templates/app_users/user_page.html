@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Page</title>
+    <link rel="stylesheet" href="{% static 'css/normalize.css'%}">
+    <link rel="stylesheet" href="{% static 'css/style.css'%}">
+</head>
+<body class="body">
+    <div class="header news_creation__header">
+        <span class="news_creation__span">{{ user.username }}</span>
+        <a href="../logout/" class="news_creation__input">Выйти</a>
+    </div>
+    <main class="main">
+        <section class="section news_creation">
+            <div class="container user_page__container">
+                <a class="user_page__input">
+                    <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="50" height="100"><path d="M16.043,14H7.957A4.963,4.963,0,0,0,3,18.957V24H21V18.957A4.963,4.963,0,0,0,16.043,14Z"/><circle cx="12" cy="6" r="6"/>
+                    </svg>
+                </a>
+                <ul class="list-reset form_list">
+                    <li class="form__item">
+                        <p class="news__form__title">Имя пользователя</p>
+                        <p class="user_page__content">{{ user.username }}</p>
+                    </li>
+                    <li class="form__item">
+                        <p class="news__form__title">Телефон</p>
+                        <p class="user_page__content">{{ user.profile.tel }}</p>
+                    </li>
+                    <li class="form__item">
+                        <p class="news__form__title">Город</p>
+                        <p class="user_page__content">{{ user.profile.city }}</p>
+                    </li>
+                    <li class="form__item">
+                        <p class="news__form__title">Флаг верификации</p>
+                        <p class="user_page__content">{{ user.profile.type_user }}</p>
+                    </li>
+                    <li class="form__item">
+                        <p class="news__form__title">Количество опубликованных новостей</p>
+                        <p class="user_page__content">{{ user.profile.news_count }}</p>
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+
+    </footer>
+</body>
+</html>

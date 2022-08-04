@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Page</title>
+    <link rel="stylesheet" href="{% static 'css/normalize.css'%}">
+    <link rel="stylesheet" href="{% static 'css/style.css'%}">
+</head>
+<body class="body">
+    <div class="header news_creation__header">
+        <a href="../../" class="input news_creation__input">На главную</a>
+        <span class="news_creation__span">{{ select_news.short_title }}</span>
+
+        {% if user.is_authenticated %}
+        <a href="../../user_page/" class="input news_creation__input">
+            {{ user.username }}
+            <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="24" height="24"><path d="M16.043,14H7.957A4.963,4.963,0,0,0,3,18.957V24H21V18.957A4.963,4.963,0,0,0,16.043,14Z"/><circle cx="12" cy="6" r="6"/>
+            </svg>
+        </a>
+        {% else %}
+        <div>
+            <a href="login/" class="input news_creation__input">Вход</a>
+            <a href="registration/" class="registration news_creation__registration">Регистрация</a>
+        </div>
+        {% endif %}
+    </div>
+    <main class="main">
+        <section class="section news_creation">
+            <div class="container detail_page__container">
+                <div class="detail_page__news_text" style="font-size: 28px">
+                    {{ select_news.title }}
+                </div>
+                <div class="detail_page__news_text">
+                    {{ select_news.content }}
+                </div>
+                <div class="detail_page__news_text">
+                    Теги:
+                    {{ select_news.teg }}
+                </div>
+                <p class="comments">Комментарии:</p>
+                <form action=" " method="post" class="comments__form">
+                    {% csrf_token %}
+                    <ul class="list-reset form_list">
+                        <li class="form__item">
+                            <p class="form__title news__form__title">Имя</p>
+                            {% if user.is_authenticated %}
+                            <p class="form__title news__form__title">{{ user.username }}</p>
+                            {% else %}
+                            {{ form.username }}
+                            {% endif %}
+                        </li>
+                        <li class="form__item">
+                            <p class="form__title news__form__title">Комментарий</p>
+                            {{ form.comment_text }}
+                        </li>
+                    </ul>
+                    <div class="btns">
+                        <button type="submit" name="save_com" class="btn comments__btn btn-reset">Оставить комментарий</button>
+                    </div>
+                </form>
+                <ul class="list-reset comments__list">
+                    {% for comment in select_comment %}
+                    <li class="item">
+                        <p class="user_name "> {{ comment.username }} </p>
+                        <div class="text_item">{{ comment.comment_text }}</div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+
+    </footer>
+</body>
+</html>
