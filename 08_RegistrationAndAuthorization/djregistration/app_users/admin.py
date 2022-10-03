@@ -46,17 +46,14 @@ class CommentAdmin(admin.ModelAdmin):
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
     list_display = ['user', 'tel', 'type_user']
-    actions = ['mark_as_verified', 'mark_as_not_verified']
-
-    def mark_as_not_verified(self, request, queryset):
-        queryset.update(type_user='ordinary')
-        group = Group.objects.get(name='Обычные пользователи')
-        group.user_set.add(request.user)
+    actions = ['mark_as_verified']
 
     def mark_as_verified(self, request, queryset):
         queryset.update(type_user='verified')
         group = Group.objects.get(name='Верифицированные пользователи')
-        group.user_set.add(request.user)
+        profiles = Profile.objects.all()
+        for profile in profiles:
+            if profile.FLAG_VERIFICATION == 'expectation':
+                group.user_set.add(profile.user)
 
     mark_as_verified.short_description = 'Перевести в статус \"верифицированный пользователь\"'
-    mark_as_not_verified.short_description = 'Перевести в статус \"обычный пользователь\"'
